@@ -12,7 +12,7 @@ wget --no-check-certificate https://github.com/tdz/gtkglext/archive/master.zip
 unzip master
 rm master
 cd gtkglext-master
-autoreconf -is -Wno-postability -I/c/Users/Mike/Gtk-Installer/aclocal -I/c/Users/Mike/Gtk-Installer/usr/i686-w64-mingw32/sys-root/mingw/share/aclocal -I/usr/local/share/aclocal
+autoreconf -is -Wno-portability -I/c/Users/Mike/Gtk-Installer/aclocal -I/c/Users/Mike/Gtk-Installer/usr/i686-w64-mingw32/sys-root/mingw/share/aclocal -I/usr/local/share/aclocal
 mkdir build
 cd build
 ../configure --enable-win32-backend --enable-shared --disable-static --disable-gtk-doc-html --disable-introspection --host=i686-w64-mingw32
