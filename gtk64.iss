@@ -1,7 +1,7 @@
 [Setup]
 ShowLanguageDialog=no
 AppName=Gtk+ Runtime (64-bits)
-AppVersion=3.6.1
+AppVersion=3.8.1
 AppPublisher=GtkD Developers
 DefaultDirName={pf}\Gtk-Runtime
 SourceDir=usr\x86_64-w64-mingw32\sys-root\mingw
@@ -10,7 +10,7 @@ WizardImageFile=compiler:WizModernImage-IS.bmp
 WizardSmallImageFile=../../../../logo.gtk.bmp
 WizardImageBackColor=clWhite
 OutputDir=../../../../
-OutputBaseFilename=Gtk-Runtime-3.6-Setup(64-bits)
+OutputBaseFilename=Gtk-Runtime-3.8-Setup(64-bits)
 ArchitecturesInstallIn64BitMode=x64
 ArchitecturesAllowed=x64
 

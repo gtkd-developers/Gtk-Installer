@@ -1,4 +1,7 @@
-A installer can be build with the two batch files (one for 32bits and one for 64 bits).
+A the installers (64 and 32 bits) can be build with the shell script.
+
+To run the shell script and to build gtkglext and gtksourceview
+Msys and mingw need to be installed.
 
 It uses the python sript written by Maarten Bosmans to download the
 Gtk rpms from OpenSUSE and InnoSetup to create the actual installer.
