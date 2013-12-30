@@ -31,7 +31,7 @@ wget ftp://ftp.gnome.org/Public/gnome/sources/gtksourceview/3.8/gtksourceview-3.
 tar -xf gtksourceview-3.8.1.tar.xz
 rm gtksourceview-3.8.1.tar.xz
 
-#cd gtksourceview-3.8.1
+cd gtksourceview-3.8.1
 mkdir build
 cd build
 
@@ -58,6 +58,23 @@ usr/i686-w64-mingw32/sys-root/mingw/bin/glib-compile-schemas.exe usr/i686-w64-mi
 cp -R gtkglext-master/build/root/usr/local/bin usr/i686-w64-mingw32/sys-root/mingw
 cp -R gtksourceview-3.8.1/build/root/usr/local/bin usr/i686-w64-mingw32/sys-root/mingw
 cp -R gtksourceview-3.8.1/build/root/usr/local/share usr/i686-w64-mingw32/sys-root/mingw
+cp settings.ini usr/i686-w64-mingw32/sys-root/mingw/etc/gtk-3.0/
+
+#Get the Icon Themes
+wget http://icon-theme.freedesktop.org/releases/default-icon-theme-0.1.tar.gz
+tar -xf default-icon-theme-0.1.tar.gz
+rm default-icon-theme-0.1.tar.gz
+cd default-icon-theme-0.1
+make install DESTDIR=`pwd`/../usr/i686-w64-mingw32/sys-root/mingw PREFIX=/share
+cd ..
+
+wget http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-0.13.tar.gz
+tar -xf hicolor-icon-theme-0.13.tar.gz
+rm hicolor-icon-theme-0.13.tar.gz
+cd hicolor-icon-theme-0.13
+./configure
+make install DESTDIR=`pwd`/../usr/i686-w64-mingw32/sys-root/mingw datadir=/share
+cd ..
 
 #Build the installer.
 /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe gtk32.iss
@@ -74,6 +91,7 @@ export PATH=`pwd`/usr/x86_64-w64-mingw32/sys-root/mingw/bin:.:/usr/local/bin:/mi
 
 #Configure gtkglext
 cd gtkglext-master
+autoreconf -is -Wno-portability -I/c/Users/Mike/Gtk-Installer/aclocal -I/c/Users/Mike/Gtk-Installer/usr/x86_64-w64-mingw32/sys-root/mingw/share/aclocal -I/usr/local/share/aclocal
 mkdir build64
 cd build64
 ../configure --enable-win32-backend --enable-shared --disable-static --disable-gtk-doc-html --disable-introspection --host=x86_64-w64-mingw32
@@ -114,6 +132,16 @@ usr/x86_64-w64-mingw32/sys-root/mingw/bin/glib-compile-schemas.exe usr/x86_64-w6
 cp -R gtkglext-master/build64/root/usr/local/bin usr/x86_64-w64-mingw32/sys-root/mingw
 cp -R gtksourceview-3.8.1/build64/root/usr/local/bin usr/x86_64-w64-mingw32/sys-root/mingw
 cp -R gtksourceview-3.8.1/build64/root/usr/local/share usr/x86_64-w64-mingw32/sys-root/mingw
+cp settings.ini usr/i686-w64-mingw32/sys-root/mingw/etc/gtk-3.0/
+
+#Get the Icon Themes
+cd default-icon-theme-0.1
+make install DESTDIR=`pwd`/../usr/x86_64-w64-mingw32/sys-root/mingw PREFIX=/share
+cd ..
+
+cd hicolor-icon-theme-0.13
+make install DESTDIR=`pwd`/../usr/x86_64-w64-mingw32/sys-root/mingw datadir=/share
+cd ..
 
 #Build the installer.
 /c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe gtk64.iss
@@ -122,3 +150,5 @@ rm -rf usr
 rm -rf cache
 rm -rf gtkglext-master
 rm -rf gtksourceview-3.8.1
+rm -rf default-icon-theme-0.1
+rm -rf hicolor-icon-theme-0.13

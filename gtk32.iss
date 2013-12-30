@@ -1,7 +1,7 @@
 [Setup]
 ShowLanguageDialog=no
 AppName=Gtk+ Runtime
-AppVersion=3.8.1-1
+AppVersion=3.8.1-2
 AppPublisher=GtkD Developers
 DefaultDirName={pf}\Gtk-Runtime
 SourceDir=usr\i686-w64-mingw32\sys-root\mingw
@@ -13,7 +13,7 @@ OutputDir=../../../../
 OutputBaseFilename=Gtk-Runtime-3.8-Setup
 
 [Files]
-Source: "*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Tasks]
 Name: modifypath; Description: &Add application directory to your system path
