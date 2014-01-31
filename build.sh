@@ -1,154 +1,55 @@
-#!/bin/sh
+#!/bin/bash
 
-#Download delelopment package from suse.
-python download-mingw-rpm.py --deps --project windows:mingw:win32 gtk3-devel libxml2-devel pkg-config glib2-tools gsettings-desktop-schemas
+mkdir -p pkg/lib
 
-#Temporarly override the PATH.
+#-O2 ?
+export CFLAGS="-mms-bitfields"
+export CXXFLAGS="${CFLAGS}"
+export LDFLAGS=-L`pwd`/pkg/lib
+export CPPFLAGS=-I`pwd`/pkg/include
+export prefix=""
+export DESTDIR="`pwd`/pkg"
+
 export OLD_PATH=$PATH
-export PATH=`pwd`/usr/i686-w64-mingw32/sys-root/mingw/bin:.:/usr/local/bin:/mingw/bin:/bin:.
+export PATH=`pwd`/pkg/bin:/mingw/bin:/usr/bin:/usr/local/bin:/bin:/c/Python25
 
-#Download an configure gtkglext
-wget --no-check-certificate https://github.com/tdz/gtkglext/archive/master.zip
-unzip master
-rm master
-cd gtkglext-master
-autoreconf -is -Wno-portability -I/c/Users/Mike/Gtk-Installer/aclocal -I/c/Users/Mike/Gtk-Installer/usr/i686-w64-mingw32/sys-root/mingw/share/aclocal -I/usr/local/share/aclocal
-mkdir build
-cd build
-../configure --enable-win32-backend --enable-shared --disable-static --disable-gtk-doc-html --disable-introspection --host=i686-w64-mingw32
-echo "all:" > examples/Makefile
-echo "install-exec:" >> examples/Makefile
+cd libs
 
-#make gtkglext
-make
-mkdir root
-make install-exec DESTDIR=`pwd`/root
+#prepare build32 build64 clean
+for command in build32 build64
+do
+	for file in *.sh
+	do
+		./$file $command || exit $?
+	done
+done
 
-cd ../..
-
-#Download Gtksourceview
-wget ftp://ftp.gnome.org/Public/gnome/sources/gtksourceview/3.8/gtksourceview-3.8.1.tar.xz
-tar -xf gtksourceview-3.8.1.tar.xz
-rm gtksourceview-3.8.1.tar.xz
-
-cd gtksourceview-3.8.1
-mkdir build
-cd build
-
-#Make gtksourceview
-../configure --localedir=/usr/local/share/locale --enable-shared --disable-static --host=i686-w64-mingw32
-make
-cd po
-make all-yes
-cd ..
-mkdir root
-make install DESTDIR=`pwd`/root
-cd po
-make install-data-yes DATADIRNAME="share" DESTDIR=`pwd`/../root
-
-cd ../../../
-
-#Download the packages needed by the installer.
-rm -rf usr
-export PATH=$OLD_PATH
-python download-mingw-rpm.py --deps --project windows:mingw:win32 gtk3 glib2-tools gsettings-desktop-schemas
-usr/i686-w64-mingw32/sys-root/mingw/bin/glib-compile-schemas.exe usr/i686-w64-mingw32/sys-root/mingw/share/glib-2.0/schemas/
-
-#Copy over the files build for gtkglext and gtksourceview.
-cp -R gtkglext-master/build/root/usr/local/bin usr/i686-w64-mingw32/sys-root/mingw
-cp -R gtksourceview-3.8.1/build/root/usr/local/bin usr/i686-w64-mingw32/sys-root/mingw
-cp -R gtksourceview-3.8.1/build/root/usr/local/share usr/i686-w64-mingw32/sys-root/mingw
-cp settings.ini usr/i686-w64-mingw32/sys-root/mingw/etc/gtk-3.0/
-
-#Get the Icon Themes
-wget http://icon-theme.freedesktop.org/releases/default-icon-theme-0.1.tar.gz
-tar -xf default-icon-theme-0.1.tar.gz
-rm default-icon-theme-0.1.tar.gz
-cd default-icon-theme-0.1
-make install DESTDIR=`pwd`/../usr/i686-w64-mingw32/sys-root/mingw PREFIX=/share
-cd ..
-
-wget http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-0.13.tar.gz
-tar -xf hicolor-icon-theme-0.13.tar.gz
-rm hicolor-icon-theme-0.13.tar.gz
-cd hicolor-icon-theme-0.13
-./configure
-make install DESTDIR=`pwd`/../usr/i686-w64-mingw32/sys-root/mingw datadir=/share
-cd ..
-
-#Build the installer.
-/c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe gtk32.iss
-
-rm -rf usr
-
-## 64 bits.
-
-#Download delelopment package from suse.
-python download-mingw-rpm.py --deps --project windows:mingw:win64 gtk3-devel libxml2-devel pkg-config glib2-tools gsettings-desktop-schemas
-
-#Temporarly override the PATH.
-export PATH=`pwd`/usr/x86_64-w64-mingw32/sys-root/mingw/bin:.:/usr/local/bin:/mingw/bin:/bin:.
-
-#Configure gtkglext
-cd gtkglext-master
-autoreconf -is -Wno-portability -I/c/Users/Mike/Gtk-Installer/aclocal -I/c/Users/Mike/Gtk-Installer/usr/x86_64-w64-mingw32/sys-root/mingw/share/aclocal -I/usr/local/share/aclocal
-mkdir build64
-cd build64
-../configure --enable-win32-backend --enable-shared --disable-static --disable-gtk-doc-html --disable-introspection --host=x86_64-w64-mingw32
-echo "all:" > examples/Makefile
-echo "install-exec:" >> examples/Makefile
-
-#make gtkglext
-make
-mkdir root
-make install-exec DESTDIR=`pwd`/root
-
-cd ../..
-
-cd gtksourceview-3.8.1
-mkdir build64
-cd build64
-
-#Make gtksourceview
-../configure --localedir=/usr/local/share/locale --enable-shared --disable-static --host=x86_64-w64-mingw32
-make
-cd po
-make all-yes
-cd ..
-mkdir root
-make install DESTDIR=`pwd`/root
-cd po
-make install-data-yes DATADIRNAME="share" DESTDIR=`pwd`/../root
-
-cd ../../../
-
-#Download the packages needed by the installer.
-rm -rf usr
-export PATH=$OLD_PATH
-python download-mingw-rpm.py --deps --project windows:mingw:win64 gtk3 glib2-tools gsettings-desktop-schemas
-usr/x86_64-w64-mingw32/sys-root/mingw/bin/glib-compile-schemas.exe usr/x86_64-w64-mingw32/sys-root/mingw/share/glib-2.0/schemas/
-
-#Copy over the files build for gtkglext and gtksourceview.
-cp -R gtkglext-master/build64/root/usr/local/bin usr/x86_64-w64-mingw32/sys-root/mingw
-cp -R gtksourceview-3.8.1/build64/root/usr/local/bin usr/x86_64-w64-mingw32/sys-root/mingw
-cp -R gtksourceview-3.8.1/build64/root/usr/local/share usr/x86_64-w64-mingw32/sys-root/mingw
-cp settings.ini usr/i686-w64-mingw32/sys-root/mingw/etc/gtk-3.0/
-
-#Get the Icon Themes
-cd default-icon-theme-0.1
-make install DESTDIR=`pwd`/../usr/x86_64-w64-mingw32/sys-root/mingw PREFIX=/share
-cd ..
-
-cd hicolor-icon-theme-0.13
-make install DESTDIR=`pwd`/../usr/x86_64-w64-mingw32/sys-root/mingw datadir=/share
-cd ..
-
-#Build the installer.
-/c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe gtk64.iss
-
-rm -rf usr
-rm -rf cache
-rm -rf gtkglext-master
-rm -rf gtksourceview-3.8.1
-rm -rf default-icon-theme-0.1
-rm -rf hicolor-icon-theme-0.13
+#./01-zlib.sh
+#./02-xz.sh
+#./03-libfii.sh
+#./04-libiconv.sh
+#./05-termcap.sh
+#./10-gettext.sh
+#./11-libxml2.sh
+#./12-glib2.sh
+#./13-pkgconfig.sh
+#./14-atk.sh
+#./20-libpng.sh
+#./21-libjpeg.sh
+#./22-jasper.sh
+#./23-libtiff.sh
+#./24-pixman.sh
+#./30-freetype.sh
+#./31-fontconfig.sh
+#./40-cairo.sh
+#./41-harfbuzz.sh
+#./42-pango.sh
+#./43-gdk-pixbuf2.sh
+#./50-gtk.sh
+#./51-gtkglext.sh
+#./52-gtksourceview.sh
+#./60-default-icon-theme.sh
+#./61-hicolor-icon-theme.sh
+#./90-prepare.sh
+#./91-strip.sh
+#./99-installer.sh

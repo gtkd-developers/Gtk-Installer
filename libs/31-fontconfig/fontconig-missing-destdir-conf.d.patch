@@ -1,0 +1,14 @@
+--- fontconfig-2.11.0.old/conf.d/Makefile.am	2013-10-11 05:10:17.000000000 +0200
++++ fontconfig-2.11.0/conf.d/Makefile.am	2014-01-22 21:04:38.566690300 +0100
+@@ -88,9 +88,9 @@
+ 	@(echo cd $(DESTDIR)$(configdir);			\
+ 	  cd $(DESTDIR)$(configdir);				\
+ 	  for i in $(CONF_LINKS); do				\
+-	    echo $(RM) $$i";" ln -s $(templatedir)/$$i .;	\
++	    echo $(RM) $$i";" ln -s $(DESTDIR)$(templatedir)/$$i .;	\
+ 	    $(RM) $$i;						\
+-	    ln -s $(templatedir)/$$i .;				\
++	    ln -s $(DESTDIR)$(templatedir)/$$i .;				\
+ 	  done)
+ uninstall-local:
+ 	@(echo cd $(DESTDIR)$(configdir);			\

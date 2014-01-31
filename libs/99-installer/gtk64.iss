@@ -1,16 +1,18 @@
 [Setup]
 ShowLanguageDialog=no
-AppName=Gtk+ Runtime
-AppVersion=3.8.1-2
+AppName=Gtk+ Runtime (64-bits)
+AppVersion=3.10.0
 AppPublisher=GtkD Developers
 DefaultDirName={pf}\Gtk-Runtime
-SourceDir=usr\i686-w64-mingw32\sys-root\mingw
+SourceDir=../../pkg/
 ChangesEnvironment=true
 WizardImageFile=compiler:WizModernImage-IS.bmp
-WizardSmallImageFile=../../../../logo.gtk.bmp
+WizardSmallImageFile=../libs/99-installer/logo.gtk.bmp
 WizardImageBackColor=clWhite
-OutputDir=../../../../
-OutputBaseFilename=Gtk-Runtime-3.8-Setup
+OutputDir=../
+OutputBaseFilename=Gtk-Runtime-3.10-Setup(64-bits)
+ArchitecturesInstallIn64BitMode=x64
+ArchitecturesAllowed=x64
 
 [Files]
 Source: "*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
