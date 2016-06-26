@@ -1,7 +1,7 @@
 [Setup]
 ShowLanguageDialog=no
 AppName=Gtk+ Runtime (64-bits)
-AppVersion=3.18.3
+AppVersion=3.20.4
 AppPublisher=GtkD Developers
 DefaultDirName={pf}\Gtk-Runtime
 SourceDir=./
@@ -10,12 +10,12 @@ WizardImageFile=compiler:WizModernImage-IS.bmp
 WizardSmallImageFile=./logo.gtk.bmp
 WizardImageBackColor=clWhite
 OutputDir=./
-OutputBaseFilename=Gtk-Runtime-3.18-Setup(64-bits)
+OutputBaseFilename=Gtk-Runtime-3.20-Setup(64-bits)
 ArchitecturesInstallIn64BitMode=x64
 ArchitecturesAllowed=x64
 
 [Files]                                                                                  
-Source: "C:\msys64\mingw64\bin\*.dll"; DestDir: "{app}/bin"; Excludes: "libasprintf-0.dll, libcairo-script-interpreter-2.dll, libcharset-1.dll, libgettextpo-0.dll, libtiffxx-5.dll, libturbojpeg-0.dll, libstdc++-6.dll"; Flags: ignoreversion
+Source: "C:\msys64\mingw64\bin\*.dll"; DestDir: "{app}/bin"; Excludes: "libasprintf-0.dll, libcairo-script-interpreter-2.dll, libcharset-1.dll, libgettextpo-0.dll, libtiffxx-5.dll, libturbojpeg-0.dll, edit.dll"; Flags: ignoreversion
 Source: "C:\msys64\mingw64\bin\gdbus.exe";                       DestDir: "{app}/bin"; Flags: ignoreversion
 Source: "C:\msys64\mingw64\bin\gio-querymodules.exe";            DestDir: "{app}/bin"; Flags: ignoreversion
 Source: "C:\msys64\mingw64\bin\glib-compile-resources.exe";      DestDir: "{app}/bin"; Flags: ignoreversion
