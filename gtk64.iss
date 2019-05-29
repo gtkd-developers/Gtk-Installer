@@ -1,7 +1,7 @@
 [Setup]
 ShowLanguageDialog=no
 AppName=Gtk+ Runtime (64-bits)
-AppVersion=3.22.24-1
+AppVersion=3.24.8
 AppPublisher=GtkD Developers
 DefaultDirName={pf}\Gtk-Runtime
 SourceDir=./
@@ -10,7 +10,7 @@ WizardImageFile=compiler:WizModernImage-IS.bmp
 WizardSmallImageFile=./logo.gtk.bmp
 WizardImageBackColor=clWhite
 OutputDir=./
-OutputBaseFilename=gtk3-runtime_3.22.24-1_64bit
+OutputBaseFilename=gtk3-runtime_3.24.8_64bit
 ArchitecturesInstallIn64BitMode=x64
 ArchitecturesAllowed=x64
 
@@ -25,7 +25,7 @@ Source: "C:\msys64\mingw64\bin\gsettings.exe";                   DestDir: "{app}
 Source: "C:\msys64\mingw64\bin\gspawn-win64-helper.exe";         DestDir: "{app}/bin"; Flags: ignoreversion
 Source: "C:\msys64\mingw64\bin\gspawn-win64-helper-console.exe"; DestDir: "{app}/bin"; Flags: ignoreversion
 
-Source: "C:\msys64\mingw64\share\*"; DestDir: "{app}\share"; Excludes: "aclocal, bash-completion, doc, gdb, gettext, gettext-0.19.8, glib-2.0\codegen, glib-2.0\gdb, glib-2.0\gettext, glib-2.0\valgrind, gobject-introspection-1.0, graphite2, gtk-3.0, gtk-doc, info, locale\*\*\gettext-tools.mo, locale\*\*\gettext-runtime.mo, locale\*\*\xz.mo, man, pkgconfig, readline, thumbnailers, vala, xml, installed-tests, p11-kit, pki, tabset, terminfo"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\msys64\mingw64\share\*"; DestDir: "{app}\share"; Excludes: "aclocal, bash-completion, doc, gdb, gettext, gettext-0.19.8, glib-2.0\codegen, glib-2.0\gdb, glib-2.0\gettext, glib-2.0\valgrind, gobject-introspection-1.0, graphite2, gtk-3.0, gtk-doc, info, locale\*\*\xz.mo, man, pkgconfig, readline, thumbnailers, vala, xml, installed-tests, p11-kit, pki, tabset, terminfo"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 Source: "C:\msys64\mingw64\lib\gdk-pixbuf-2.0\*"; DestDir: "{app}\lib\gdk-pixbuf-2.0"; Excludes: "2.10.0\loaders\*.a"; Flags: ignoreversion recursesubdirs createallsubdirs
 
