@@ -2,7 +2,7 @@
 //
 // Inno Setup Ver:	5.4.2
 // Script Version:	1.4.2
-// Author:			Jared Breland <jbreland@legroom.net>
+// Author:			guanlong huang <gl041188@gmail.com>
 // Homepage:		http://www.legroom.net/software
 // License:			GNU Lesser General Public License (LGPL), version 3
 //						http://www.gnu.org/licenses/lgpl.html
